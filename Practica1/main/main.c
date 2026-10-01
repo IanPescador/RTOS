@@ -1,8 +1,4 @@
-/* 
- *
- * Practica 1: RTOS 
- *
-*/
+// Practica 1: RTOS 
 
 #include "main.h"
 
@@ -13,7 +9,7 @@ void vDelayMs(int ms)
 
 void Init_recursos(void)
 {
-    // Configurar GPIOs para LEDs
+    // Configurar GPIOs para LEDs de salida
     gpio_reset_pin(LED1_GPIO);
     gpio_set_direction(LED1_GPIO, GPIO_MODE_OUTPUT);
     gpio_reset_pin(LED2_GPIO);
@@ -29,34 +25,40 @@ void Init_recursos(void)
     };
     
     uart_param_config(UART_NUM_0, &uart_config);                // Configurar parámetros de UART0
-    uart_driver_install(UART_NUM_0, 2048, 0, 0, NULL, 0);   // Instalar controlador de UART0 con buffer de recepción de 2KB
+    uart_driver_install(UART_NUM_0, 2048, 0, 0, NULL, 0);       // Instalar controlador de UART0 con buffer de recepción de 2KB
 }
 
-void Led1_On(void)
+// Funcion para encender led 1
+void Led1_On(void) 
 {
     gpio_set_level(LED1_GPIO, 1);
 }
 
+// Funcion para apagar led 1
 void Led1_Off(void)
 {
     gpio_set_level(LED1_GPIO, 0);
 }
 
+// Funcion para encender led 2
 void Led2_On(void)
 {
     gpio_set_level(LED2_GPIO, 1);
 }
 
+// Funcion para apagar led 2
 void Led2_Off(void)
 {
     gpio_set_level(LED2_GPIO, 0);
 }
 
+// Funcion para enviar un caracter por UART0
 void UART0_putchar(char data)
 {
     uart_write_bytes(UART_NUM_0, &data, 1);
 }
 
+// Funcion para limpiar la pantalla de la terminal por UART0
 void UART_clrscr(void)
 {
     uart_write_bytes(UART_NUM_0, "\033[2J\033[H", 7);
@@ -65,6 +67,7 @@ void UART_clrscr(void)
 // Tarea 1: Blink LED1
 void Tarea1 (void *pvParameters){
     int x;
+    
     while(1){
         x = ( fast ? 50: 250 );
         Led1_On();
@@ -83,6 +86,7 @@ void Tarea2 (void *pvParameters){
     
     while(1){
         x= msg[i++];
+
         if( x!=0 ){
             UART0_putchar(x);
             vDelayMs(500);
@@ -90,6 +94,7 @@ void Tarea2 (void *pvParameters){
             i=0;
             vDelayMs(500);
             k++;
+
             if ( k==10 ){
                 k=0;
                 UART_clrscr();
@@ -108,6 +113,7 @@ void Tarea3 (void *pvParameters){
         Led2_Off();
         vDelayMs(100);
         cnt++;
+        
         if( cnt > 20 ){ // cada 20 contadores cambiar la variable fast
             cnt=0;
             fast = !fast;

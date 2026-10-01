@@ -8,10 +8,11 @@
 #include "driver/uart.h"
 #include "sdkconfig.h"
 
+// Variable global para controlar la velocidad
 bool fast = false;
 
-#define LED1_GPIO 2
-#define LED2_GPIO 4
+#define LED1_GPIO 2 // GPIO 2 para el led de la placa esp
+#define LED2_GPIO 4 // GPIO 4 para el led de la placa esp pin D4
 
 /*** funciones para operar recursos */
 void Led1_On(void);

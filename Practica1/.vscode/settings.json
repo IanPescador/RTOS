@@ -23,7 +23,7 @@
     "board/esp32-wrover-kit-3.3v.cfg"
   ],
   "idf.port": "COM3",
-  "idf.currentSetup": "C:\\Users\\ianpe\\esp\\v5.3\\esp-idf",
+  "idf.currentSetup": "/home/ian-pescador/.espressif/v6.0.2/esp-idf",
   "idf.customExtraVars": {
     "IDF_TARGET": "esp32"
   },
