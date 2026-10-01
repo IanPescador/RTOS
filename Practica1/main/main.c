@@ -21,15 +21,15 @@ void Init_recursos(void)
 
     // Inicializar UART0
     const uart_config_t uart_config = {
-        .baud_rate = 115200,
-        .data_bits = UART_DATA_8_BITS,
-        .parity = UART_PARITY_DISABLE,
-        .stop_bits = UART_STOP_BITS_1,
-        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE
+        .baud_rate = 115200,                    // Velocidad de transmisión
+        .data_bits = UART_DATA_8_BITS,          // Tamaño de palabra: 8 bits
+        .parity = UART_PARITY_DISABLE,          // Sin paridad
+        .stop_bits = UART_STOP_BITS_1,          // Bit de parada: 1
+        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE   // Sin control de flujo
     };
     
-    uart_param_config(UART_NUM_0, &uart_config);
-    uart_driver_install(UART_NUM_0, 1024 * 2, 0, 0, NULL, 0);
+    uart_param_config(UART_NUM_0, &uart_config);                // Configurar parámetros de UART0
+    uart_driver_install(UART_NUM_0, 2048, 0, 0, NULL, 0);   // Instalar controlador de UART0 con buffer de recepción de 2KB
 }
 
 void Led1_On(void)
@@ -85,7 +85,7 @@ void Tarea2 (void *pvParameters){
         x= msg[i++];
         if( x!=0 ){
             UART0_putchar(x);
-            vDelayMs(20);
+            vDelayMs(500);
         }else{
             i=0;
             vDelayMs(500);
@@ -104,9 +104,9 @@ void Tarea3 (void *pvParameters){
     
     while(1){
         Led2_On();
-        vDelayMs(50);
+        vDelayMs(100);
         Led2_Off();
-        vDelayMs(50);
+        vDelayMs(100);
         cnt++;
         if( cnt > 20 ){ // cada 20 contadores cambiar la variable fast
             cnt=0;
