@@ -2,11 +2,6 @@
 
 #include "main.h"
 
-void vDelayMs(int ms)
-{
-    vTaskDelay(ms / portTICK_PERIOD_MS);
-}
-
 void Init_recursos(void)
 {
     // Configurar GPIOs para LEDs de salida
@@ -71,9 +66,9 @@ void Tarea1 (void *pvParameters){
     while(1){
         x = ( fast ? 50: 250 );
         Led1_On();
-        vDelayMs( x );
+        vTaskDelay(x / portTICK_PERIOD_MS);
         Led1_Off();
-        vDelayMs( x );
+        vTaskDelay(x / portTICK_PERIOD_MS);
     }
 }
 
@@ -89,10 +84,10 @@ void Tarea2 (void *pvParameters){
 
         if( x!=0 ){
             UART0_putchar(x);
-            vDelayMs(500);
+            vTaskDelay(500 / portTICK_PERIOD_MS);
         }else{
             i=0;
-            vDelayMs(500);
+            vTaskDelay(500 / portTICK_PERIOD_MS);
             k++;
 
             if ( k==10 ){
@@ -109,15 +104,15 @@ void Tarea3 (void *pvParameters){
     
     while(1){
         Led2_On();
-        vDelayMs(100);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
         Led2_Off();
-        vDelayMs(100);
+        vTaskDelay(100 / portTICK_PERIOD_MS);
         cnt++;
         
         if( cnt > 20 ){ // cada 20 contadores cambiar la variable fast
             cnt=0;
             fast = !fast;
-            vDelayMs(1000);
+            vTaskDelay(1000 / portTICK_PERIOD_MS);
         }
     }
 }
