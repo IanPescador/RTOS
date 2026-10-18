@@ -6,17 +6,17 @@
  * nota: es necesario realizar la instalacion del driver por fuera
  */
 void UART0_Init(void){
-    uart_config_t uart_config = {
-        .baud_rate = 115200,
-        .data_bits = UART_DATA_8_BITS,
-        .parity = UART_PARITY_DISABLE,
-        .stop_bits = UART_STOP_BITS_1,
-        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
-        .source_clk = UART_SCLK_DEFAULT,
+    // Inicializar UART0
+    const uart_config_t uart_config = {
+        .baud_rate = 115200,                    // Velocidad de transmisión
+        .data_bits = UART_DATA_8_BITS,          // Tamaño de palabra: 8 bits
+        .parity = UART_PARITY_DISABLE,          // Sin paridad
+        .stop_bits = UART_STOP_BITS_1,          // Bit de parada: 1
+        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE   // Sin control de flujo
     };
-
-    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_0, 2048, 0, 0, NULL, 0));       // Instalar controlador de UART0 con buffer de recepción de 2KB));
-    ESP_ERROR_CHECK(uart_param_config(UART_NUM_0, &uart_config));
+    
+    ESP_ERROR_CHECK(uart_param_config(UART_NUM_0, &uart_config));                // Configurar parámetros de UART0
+    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_0, 2048, 0, 0, NULL, 0));       // Instalar controlador de UART0 con buffer de recepción de 2KB
 }
 
 // Moves the cursor to a specific coordinate
@@ -29,7 +29,7 @@ void UART0_Gotoxy(uint8_t x, uint8_t y){
 
 //Function Clear
 void UART0_ClrScr(void){
-    const char caClearScr[] = "\e[2J";
+    const char caClearScr[] = "\033[2J\033[H";
     uart_write_bytes(UART_NUM_0, caClearScr, sizeof(caClearScr));
 }
   
@@ -42,7 +42,7 @@ bool UART0_Kbhit(void){
   
 //Function Putchar
 void UART0_Putchar(char c){
-    uart_write_bytes(UART_NUM_0, &c, sizeof(c));
+    uart_write_bytes(UART_NUM_0, &c, 1);
 }
   
 //Function Puts
@@ -151,13 +151,14 @@ void app_main(void)
     UART0_Init();
 
     // Inicializar la pantalla del juego Pong
-    initPongScreen();
+    // initPongScreen();
 
     while (1)
     {
         // Imprimir la pantalla del juego Pong
         // printPongScreen();
-        UART0_Puts("Pong Game Screen\n");
-        vTaskDelay(pdMS_TO_TICKS(1000)); // Esperar 1 segundo
+        // UART0_Puts("Pong Game Screen\n");
+        UART0_Putchar('x');
+        delayMs(1000); // Esperar 1 segundo
     }
 }
