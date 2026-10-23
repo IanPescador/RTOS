@@ -1,12 +1,12 @@
 #ifndef MAIN_H
 #define MAIN_H
- 
+
 #include <stdio.h>
 #include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "sdkconfig.h"
 #include "driver/uart.h"
- 
+
 // Funciones para operar UART
 void UART0_Init(void);
 void UART0_ClrScr(void);
@@ -17,10 +17,10 @@ bool UART0_Kbhit(void);
 void UART0_Putchar(char c);
 void UART0_Puts(const char *str);
 char UART0_GetcharAuto(void);
- 
+
 // Funcion para el delay
 void delayMs(uint16_t ms);
- 
+
 // DEFINICIONES PARA EL JUEGO PONG
 #define PONG_SCREEN_ROWS 25
 #define PONG_SCREEN_COLS   80
@@ -50,5 +50,5 @@ int raquetaPcX;        // columna donde empieza la raqueta del usuario
 int ballX, ballY;      // posicion de la pelota (columna, renglon)
 int ballDx, ballDy;    // pendiente de la recta: m = ballDy / ballDx
 bool gameOver = false;
- 
+
 #endif /* MAIN_H */

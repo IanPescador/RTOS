@@ -22,10 +22,16 @@
   "idf.openOcdConfigs": [
     "board/esp32-wrover-kit-3.3v.cfg"
   ],
-  "idf.port": "COM3",
-  "idf.currentSetup": "C:\\Users\\ianpe\\esp\\v5.3\\esp-idf",
+  "idf.port": "/dev/ttyUSB0",
+  "idf.currentSetup": "/home/ian-pescador/.espressif/v6.0.2/esp-idf",
   "idf.customExtraVars": {
     "IDF_TARGET": "esp32"
   },
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "clangd.path": "/home/ian-pescador/.espressif/tools/esp-clang/esp-20.1.1_20250829/esp-clang/bin/clangd",
+  "clangd.arguments": [
+    "--background-index",
+    "--query-driver=**",
+    "--compile-commands-dir=/home/ian-pescador/Documents/code/RTOS/Practica3/build"
+  ]
 }

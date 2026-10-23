@@ -189,7 +189,7 @@ void moveBall(void){
         if (nx >= raquetaEspX && nx < raquetaEspX + RAQUETA_LEN) { // Revisar si toco la raqueta
             ballDy = -ballDy; // Cambio de sentido y
             ballDx = reboteRaqueta[nx - raquetaEspX]; // Cambio del rebote en x
-            ny = ballY;
+            ny = ballY; // La pelota se queda donde mismo en y
         } else {
             gameOver = true; // El ESP fallo se acaba el juego (No deberia ser posible)
         }
@@ -197,7 +197,7 @@ void moveBall(void){
         if (nx >= raquetaPcX && nx < raquetaPcX + RAQUETA_LEN) { // Revisar si toco la raqueta
             ballDy = -ballDy; // Cambio de sentido y
             ballDx = reboteRaqueta[nx - raquetaPcX]; // Cambio del rebote en x
-            ny = ballY; // rebota se queda en su renglon
+            ny = ballY; // La pelota se queda donde mismo en y
         } else {
             gameOver = true; // El Jugador fallo se acaba el juego             
         }
@@ -209,10 +209,11 @@ void moveBall(void){
 }
 
 // Una pasada del juego
-void updatePongState(void){
+void updatePongState(){
     movePC();       // Movimiento de la raqueta del jugador
     moveESP();      // Movimiento de la raqueta de la computadora sigue la pelota
     moveBall();     // Movimiento de la pelota
+    printPongScreen();
 }
 
 void app_main(void)
@@ -229,12 +230,10 @@ void app_main(void)
     while (!gameOver)
     {
         updatePongState();
-        printPongScreen();
-        delayMs(10);
+        delayMs(50);
     }
 
     UART0_AddCursor();
-
     UART0_Gotoxy(1,25); //Colocar al final de la pantalla
     UART0_Puts("GAME OVER");
 }
